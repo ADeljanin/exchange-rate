@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import 'rxjs/add/operator/map';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { IRates } from './exchange-rate';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class DataService {
-  result: any;
-  constructor(private _http: HttpClient) {}
+  private exchangeUrl = 'https://api.exchangerate.host/latest?base';
+  constructor(private http: HttpClient) {}
 
-  getCurrency() {
-    return this._http
-      .get('https://api.exchangerate.host/latest?base=USD')
-      .pipe(map((result) => (this.result = result.json())));
+  getCurrency(): Observable<IRates[]> {
+    return this.http.get<IRates[]>(this.exchangeUrl);
   }
 }

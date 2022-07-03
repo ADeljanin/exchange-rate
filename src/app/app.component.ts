@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
 
 @Component({
@@ -6,14 +6,16 @@ import { DataService } from './data.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  objectKeys = Object.keys;
-  exchanges: any;
+export class AppComponent implements OnInit {
+  title: string = 'ex-rate';
+  ratesData: string = '';
 
-  constructor(private _data: DataService) {}
-  ngOnInit() {
-    this._data.getCurrency().subscribe((res: any) => (this.exchanges = res));
-    console.log(res);
+  constructor(private ratesdata: DataService) {}
+  ngOnInit(): void {
+    this.ratesdata.getCurrency().subscribe((data) => {
+      this.ratesData = JSON.stringify(Object.entries(data)[4][1]);
+      console.log(this.ratesData);
+    });
   }
 }
 function res(res: any) {
