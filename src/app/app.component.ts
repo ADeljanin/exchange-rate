@@ -13,8 +13,8 @@ export class AppComponent implements OnInit {
   constructor(private ratesdata: DataService) {}
   ngOnInit(): void {
     this.ratesdata.getCurrency().subscribe((data) => {
-      this.ratesData = JSON.stringify(Object.entries(data)[4][1]);
-      console.log(this.ratesData);
+      this.ratesData = JSON.stringify(Object.entries(data));
+      console.log(typeof this.ratesData);
     });
   }
 }
