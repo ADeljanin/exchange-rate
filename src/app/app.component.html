@@ -1,1 +1,5 @@
-<div>{{ ratesData }}</div>
+<div *ngIf="ratesData">
+  <div  *ngFor="let rate of ratesData.rates | keyvalue">
+    {{rate.key}}  {{rate.value}}
+  </div>
+</div>

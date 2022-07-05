@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from './data.service';
+import { ExchangeRateService } from './core/service/exchange-rate.service';
+import { ErrorService } from './core/service/error.service';
+import { Rates, RatesResponse } from './shared/models/exchange-rate.mode';
 
 @Component({
   selector: 'app-root',
@@ -7,17 +9,21 @@ import { DataService } from './data.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title: string = 'ex-rate';
-  ratesData: string = '';
+  ratesData!: RatesResponse;
 
-  constructor(private ratesdata: DataService) {}
+  constructor(private exchangeRateService: ExchangeRateService,
+    private errorService: ErrorService) { }
+
   ngOnInit(): void {
-    this.ratesdata.getCurrency().subscribe((data) => {
-      this.ratesData = JSON.stringify(Object.entries(data));
-      console.log(typeof this.ratesData);
+    this.loadData();
+  }
+
+
+  private loadData() {
+    this.exchangeRateService.getCurrency().subscribe(data => {
+      this.ratesData = data;
+    }, error => {
+      this.errorService.handleError(error);
     });
   }
-}
-function res(res: any) {
-  throw new Error('Function not implemented.');
 }
