@@ -9,7 +9,7 @@ import { Rates, RatesResponse } from './shared/models/exchange-rate.mode';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  ratesData!: RatesResponse;
+  filteredRates!: Rates;
 
   constructor(private exchangeRateService: ExchangeRateService,
     private errorService: ErrorService) { }
@@ -21,9 +21,21 @@ export class AppComponent implements OnInit {
 
   private loadData() {
     this.exchangeRateService.getCurrency().subscribe(data => {
-      this.ratesData = data;
+      this.filteredRates = this.filterRates(data.rates, ['USD', 'GBP', 'EUR']);
     }, error => {
       this.errorService.handleError(error);
     });
   }
+
+  private filterRates(rates: Rates, filteredNames: string[]): Rates {
+    let filteredRates: Rates = {};
+
+    Object.entries(rates).forEach(item => {
+      if (filteredNames.includes(item[0])) {
+        filteredRates[item[0]] = item[1];
+      }
+    })
+    return filteredRates;
+  }
+
 }

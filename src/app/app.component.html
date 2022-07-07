@@ -1,11 +1,20 @@
-<div class="rates-container" *ngIf="ratesData">
+<div class="rates-container" *ngIf="filteredRates">
   <div class="bg-video">
     <video class="bg-video__content" autoplay muted loop>
       <source src="../assets/video/Three dollars.mp4" type="video/mp4" />
       Your browser is not supported
     </video>
   </div>
-  <div *ngFor="let rate of ratesData.rates | keyvalue">
-    {{ rate.key }} {{ rate.value }}
-  </div>
+
+  <table>
+    <tr>
+      <th>Valuta</th>
+      <th>Kurs</th>
+    </tr>
+    <tr *ngFor="let rate of filteredRates | keyvalue">
+      <td>{{ rate.key }}</td>
+      <td>{{ rate.value }}</td>
+    </tr>
+  </table>
+
 </div>
