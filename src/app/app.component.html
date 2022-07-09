@@ -5,16 +5,18 @@
       Your browser is not supported
     </video>
   </div>
-
-  <table>
-    <tr>
-      <th>Valuta</th>
-      <th>Kurs</th>
-    </tr>
-    <tr *ngFor="let rate of filteredRates | keyvalue">
-      <td>{{ rate.key }}</td>
-      <td>{{ rate.value }}</td>
-    </tr>
+  <table class="rates-table">
+    <thead>
+      <tr>
+        <th>Valuta</th>
+        <th>Kurs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rate of filteredRates | keyvalue">
+        <td>{{ rate.key }}</td>
+        <td>{{ rate.value }}</td>
+      </tr>
+    </tbody>
   </table>
-
 </div>

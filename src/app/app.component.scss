@@ -1,7 +1,13 @@
 .rates-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  justify-items: center;
+  // display: grid;
+  // grid-template-columns: 1fr 1fr 1fr 1fr;
+  // justify-items: center;
+  height: 100vh;
+
+  & table {
+    margin: 0 auto;
+    width: 80%;
+  }
 }
 
 .bg-video {
@@ -18,5 +24,41 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+}
+
+.rates-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 1000px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+  text-align: center;
+  & thead tr {
+    background-color: rgb(44, 99, 230);
+    color: #ffffff;
+  }
+  & th,
+  & td {
+    padding: 12px 15px;
+  }
+  & tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+
+  & tbody tr:hover {
+    background-color: rgba(44, 99, 230, 0.5) !important;
+    color: #ffffff;
+    transition: all 0.5s;
+  }
+
+  & tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+
+  & tbody tr:last-of-type {
+    border-bottom: 2px solid #2c63e6;
   }
 }

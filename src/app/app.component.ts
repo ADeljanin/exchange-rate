@@ -11,31 +11,39 @@ import { Rates, RatesResponse } from './shared/models/exchange-rate.mode';
 export class AppComponent implements OnInit {
   filteredRates!: Rates;
 
-  constructor(private exchangeRateService: ExchangeRateService,
-    private errorService: ErrorService) { }
+  constructor(
+    private exchangeRateService: ExchangeRateService,
+    private errorService: ErrorService
+  ) {}
 
   ngOnInit(): void {
     this.loadData();
   }
 
-
   private loadData() {
-    this.exchangeRateService.getCurrency().subscribe(data => {
-      this.filteredRates = this.filterRates(data.rates, ['USD', 'GBP', 'EUR']);
-    }, error => {
-      this.errorService.handleError(error);
-    });
+    this.exchangeRateService.getCurrency().subscribe(
+      (data) => {
+        this.filteredRates = this.filterRates(data.rates, [
+          'USD',
+          'GBP',
+          'EUR',
+          'RSD',
+        ]);
+      },
+      (error) => {
+        this.errorService.handleError(error);
+      }
+    );
   }
 
   private filterRates(rates: Rates, filteredNames: string[]): Rates {
     let filteredRates: Rates = {};
 
-    Object.entries(rates).forEach(item => {
+    Object.entries(rates).forEach((item) => {
       if (filteredNames.includes(item[0])) {
         filteredRates[item[0]] = item[1];
       }
-    })
+    });
     return filteredRates;
   }
-
 }
