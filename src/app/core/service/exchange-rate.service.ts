@@ -8,10 +8,10 @@ import { RatesResponse } from '../../shared/models/exchange-rate.mode';
 })
 export class ExchangeRateService {
   private exchangeUrl = 'https://api.exchangerate.host';
-  
+
   constructor(private http: HttpClient) {}
 
   getCurrency(): Observable<RatesResponse> {
-    return this.http.get<RatesResponse>(`${this.exchangeUrl}/latest?base`);
+    return this.http.get<RatesResponse>(`${this.exchangeUrl}/latest?base=RSD`);
   }
 }

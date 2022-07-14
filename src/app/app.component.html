@@ -1,22 +1,32 @@
-<div class="rates-container" *ngIf="filteredRates">
-  <div class="bg-video">
-    <video class="bg-video__content" autoplay muted loop>
-      <source src="../assets/video/Three dollars.mp4" type="video/mp4" />
-      Your browser is not supported
-    </video>
+<div class="container">
+  <div class="container-btn">
+    <button class="btn btn-main" (click)="loadData()">
+      Show common currencies
+    </button>
+    <button class="btn btn-aside" (click)="randomData()">
+      Show random currencies
+    </button>
   </div>
-  <table class="rates-table">
-    <thead>
-      <tr>
-        <th>Valuta</th>
-        <th>Kurs</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let rate of filteredRates | keyvalue">
-        <td>{{ rate.key }}</td>
-        <td>{{ rate.value }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="rates-container" *ngIf="filteredRates">
+    <div class="bg-video">
+      <video class="bg-video__content" autoplay muted loop>
+        <source src="../assets/video/Three dollars.mp4" type="video/mp4" />
+        Your browser is not supported
+      </video>
+    </div>
+    <table class="rates-table" *ngIf="showTable">
+      <thead>
+        <tr>
+          <th>Currency name</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rate of filteredRates | keyvalue">
+          <td>{{ rate.key }}</td>
+          <td>{{ 1 / rate.value | number: "1.2-4" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

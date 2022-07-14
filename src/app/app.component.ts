@@ -10,6 +10,8 @@ import { Rates, RatesResponse } from './shared/models/exchange-rate.mode';
 })
 export class AppComponent implements OnInit {
   filteredRates!: Rates;
+  randomRates!: Rates;
+  showTable: boolean = true;
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -20,14 +22,22 @@ export class AppComponent implements OnInit {
     this.loadData();
   }
 
-  private loadData() {
+  loadData() {
     this.exchangeRateService.getCurrency().subscribe(
       (data) => {
         this.filteredRates = this.filterRates(data.rates, [
           'USD',
           'GBP',
           'EUR',
-          'RSD',
+          'AUD',
+          'CAD',
+          'CHF',
+          'BAM',
+          'NOK',
+          'JPY',
+          'TRY',
+          'HRK',
+          'HUF',
         ]);
       },
       (error) => {
@@ -45,5 +55,33 @@ export class AppComponent implements OnInit {
       }
     });
     return filteredRates;
+  }
+
+  randomData() {
+    this.exchangeRateService.getCurrency().subscribe(
+      (data) => {
+        console.log(Object.keys(data.rates));
+        let randomData: string[] = [];
+        randomData = this.getMultipleRandom(Object.keys(data.rates), 12);
+        this.filteredRates = this.filterRates(data.rates, randomData);
+      },
+      (error) => {
+        this.errorService.handleError(error);
+      }
+    );
+  }
+  // delete this later
+  toggleTable(): void {
+    this.showTable = !this.showTable;
+  }
+  //probably delete this later
+  getRandomNumber() {
+    return Math.floor(Math.random() * 168);
+  }
+
+  getMultipleRandom(arr: any, num: number | undefined) {
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
+
+    return shuffled.slice(0, num);
   }
 }
