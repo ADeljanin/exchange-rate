@@ -9,9 +9,12 @@ import { Rates, RatesResponse } from './shared/models/exchange-rate.mode';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   filteredRates!: Rates;
-  randomRates!: Rates;
-  showTable: boolean = true;
+  allRates!: Rates;
+  selectedOneCurrency: string = '';
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -25,6 +28,7 @@ export class AppComponent implements OnInit {
   loadData() {
     this.exchangeRateService.getCurrency().subscribe(
       (data) => {
+        this.allRates = data.rates;
         this.filteredRates = this.filterRates(data.rates, [
           'USD',
           'GBP',
@@ -60,7 +64,6 @@ export class AppComponent implements OnInit {
   randomData() {
     this.exchangeRateService.getCurrency().subscribe(
       (data) => {
-        console.log(Object.keys(data.rates));
         let randomData: string[] = [];
         randomData = this.getMultipleRandom(Object.keys(data.rates), 12);
         this.filteredRates = this.filterRates(data.rates, randomData);
@@ -70,18 +73,14 @@ export class AppComponent implements OnInit {
       }
     );
   }
-  // delete this later
-  toggleTable(): void {
-    this.showTable = !this.showTable;
-  }
-  //probably delete this later
-  getRandomNumber() {
-    return Math.floor(Math.random() * 168);
-  }
 
   getMultipleRandom(arr: any, num: number | undefined) {
     const shuffled = [...arr].sort(() => 0.5 - Math.random());
 
     return shuffled.slice(0, num);
+  }
+
+  selectCurrency(event: any) {
+    this.selectedOneCurrency = event.target.value;
   }
 }

@@ -6,6 +6,14 @@
     <button class="btn btn-aside" (click)="randomData()">
       Show random currencies
     </button>
+    <div>
+      <h2>Select a currency:</h2>
+      <select class="dropdown" (change)="selectCurrency($event)">
+        <option value="rate.key" *ngFor="let rate of allRates | keyvalue">
+          {{ rate.key }}
+        </option>
+      </select>
+    </div>
   </div>
   <div class="rates-container" *ngIf="filteredRates">
     <div class="bg-video">
@@ -14,7 +22,7 @@
         Your browser is not supported
       </video>
     </div>
-    <table class="rates-table" *ngIf="showTable">
+    <table class="rates-table">
       <thead>
         <tr>
           <th>Currency name</th>
