@@ -80,13 +80,24 @@ export class AppComponent implements OnInit {
     return shuffled.slice(0, num);
   }
 
-  selectCurrency(event: any) {
-    this.selectedOneCurrency = event.target.value;
+  selectCurrency(value: string): void {
+    this.selectedOneCurrency = value;
     this.exchangeRateService.getCurrency(this.selectedOneCurrency).subscribe(
       (data) => {
-        let randomData: string[] = [];
-        randomData = this.getMultipleRandom(Object.keys(data.rates), 12);
-        this.filteredRates = this.filterRates(data.rates, randomData);
+        this.filteredRates = this.filterRates(data.rates, [
+          'USD',
+          'GBP',
+          'EUR',
+          'AUD',
+          'CAD',
+          'CHF',
+          'BAM',
+          'NOK',
+          'JPY',
+          'TRY',
+          'HRK',
+          'HUF',
+        ]);
       },
       (error) => {
         this.errorService.handleError(error);
