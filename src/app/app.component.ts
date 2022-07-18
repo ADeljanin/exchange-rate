@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   }
 
   loadData() {
-    this.exchangeRateService.getCurrency().subscribe(
+    this.exchangeRateService.getCurrency('RSD').subscribe(
       (data) => {
         this.allRates = data.rates;
         this.filteredRates = this.filterRates(data.rates, [
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
   }
 
   randomData() {
-    this.exchangeRateService.getCurrency().subscribe(
+    this.exchangeRateService.getCurrency('RSD').subscribe(
       (data) => {
         let randomData: string[] = [];
         randomData = this.getMultipleRandom(Object.keys(data.rates), 12);
@@ -82,5 +82,15 @@ export class AppComponent implements OnInit {
 
   selectCurrency(event: any) {
     this.selectedOneCurrency = event.target.value;
+    this.exchangeRateService.getCurrency(this.selectedOneCurrency).subscribe(
+      (data) => {
+        let randomData: string[] = [];
+        randomData = this.getMultipleRandom(Object.keys(data.rates), 12);
+        this.filteredRates = this.filterRates(data.rates, randomData);
+      },
+      (error) => {
+        this.errorService.handleError(error);
+      }
+    );
   }
 }

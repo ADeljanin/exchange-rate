@@ -11,7 +11,9 @@ export class ExchangeRateService {
 
   constructor(private http: HttpClient) {}
 
-  getCurrency(): Observable<RatesResponse> {
-    return this.http.get<RatesResponse>(`${this.exchangeUrl}/latest?base=RSD`);
+  getCurrency(basedOn: string): Observable<RatesResponse> {
+    return this.http.get<RatesResponse>(
+      `${this.exchangeUrl}/latest?base=${basedOn}`
+    );
   }
 }
