@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   filteredRates!: Rates;
   allRates!: Rates;
   selectedOneCurrency: string = '';
+  randomRates: string[] = [];
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -67,6 +68,7 @@ export class AppComponent implements OnInit {
         let randomData: string[] = [];
         randomData = this.getMultipleRandom(Object.keys(data.rates), 12);
         this.filteredRates = this.filterRates(data.rates, randomData);
+        this.randomRates = randomData;
       },
       (error) => {
         this.errorService.handleError(error);
@@ -84,20 +86,7 @@ export class AppComponent implements OnInit {
     this.selectedOneCurrency = value;
     this.exchangeRateService.getCurrency(this.selectedOneCurrency).subscribe(
       (data) => {
-        this.filteredRates = this.filterRates(data.rates, [
-          'USD',
-          'GBP',
-          'EUR',
-          'AUD',
-          'CAD',
-          'CHF',
-          'BAM',
-          'NOK',
-          'JPY',
-          'TRY',
-          'HRK',
-          'HUF',
-        ]);
+        this.filteredRates = this.filterRates(data.rates, this.randomRates);
       },
       (error) => {
         this.errorService.handleError(error);

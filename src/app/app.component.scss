@@ -86,6 +86,28 @@
       0 17px 50px 0 rgba(44, 99, 230, 0.5);
     background-color: rgba(44, 99, 230, 0.7);
   }
+  &-main {
+    background-color: rgb(255, 255, 255);
+    color: rgb(44, 99, 230);
+    border: 1px solid rgb(44, 99, 230);
+    animation: shadow-pulse 1s infinite;
+    @keyframes shadow-pulse {
+      0% {
+        box-shadow: 0 0 0 0px rgba(44, 99, 230, 0.2);
+      }
+      50% {
+        box-shadow: 0 0 0 5px rgba(44, 99, 230, 0.2);
+      }
+      100% {
+        box-shadow: 0 0 0 5px rgba(44, 99, 230, 0.2);
+      }
+    }
+
+    &:hover {
+      color: white;
+      animation: none;
+    }
+  }
 }
 
 h2 {
