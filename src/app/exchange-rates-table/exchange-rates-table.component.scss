@@ -1,0 +1,133 @@
+.container {
+  padding-top: 80px;
+  margin: 0 auto;
+  &-btn {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 25px;
+    gap: 20px;
+    align-items: flex-end;
+  }
+}
+.rates-container {
+  & table {
+    margin: 0 auto;
+    width: 80%;
+  }
+}
+
+.bg-video {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: -2;
+  opacity: 0.2;
+  overflow: hidden;
+  &__content {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.rates-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 600px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+  text-align: center;
+  & thead tr {
+    background-color: rgb(44, 99, 230);
+    color: #ffffff;
+  }
+  & th,
+  & td {
+    padding: 12px 15px;
+  }
+  & tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+
+  & tbody tr:hover {
+    background-color: rgba(44, 99, 230, 0.5) !important;
+    color: #ffffff;
+    transition: all 0.5s;
+  }
+
+  & tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+
+  & tbody tr:last-of-type {
+    border-bottom: 2px solid #2c63e6;
+  }
+}
+
+.btn {
+  background-color: rgb(44, 99, 230);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.5s;
+  &:hover {
+    box-shadow: 0 12px 16px 0 rgba(44, 99, 230, 0.5),
+      0 17px 50px 0 rgba(44, 99, 230, 0.5);
+    background-color: rgba(44, 99, 230, 0.7);
+  }
+  &-main {
+    background-color: rgb(255, 255, 255);
+    color: rgb(44, 99, 230);
+    border: 1px solid rgb(44, 99, 230);
+    animation: shadow-pulse 1s infinite;
+    @keyframes shadow-pulse {
+      0% {
+        box-shadow: 0 0 0 0px rgba(44, 99, 230, 0.2);
+      }
+      50% {
+        box-shadow: 0 0 0 5px rgba(44, 99, 230, 0.2);
+      }
+      100% {
+        box-shadow: 0 0 0 5px rgba(44, 99, 230, 0.2);
+      }
+    }
+
+    &:hover {
+      color: white;
+      animation: none;
+    }
+  }
+}
+
+h2 {
+  color: rgb(44, 99, 230);
+  margin: 0;
+  font-family: sans-serif;
+}
+.dropdown {
+  width: 100%;
+  height: 30px;
+  border: 1px solid rgba(44, 99, 230, 0.5);
+  border-radius: 10px;
+  transition: all 0.5s;
+
+  &:hover {
+    box-shadow: 0 12px 16px 0 rgba(44, 99, 230, 0.5),
+      0 17px 50px 0 rgba(44, 99, 230, 0.5);
+  }
+  & option {
+    color: rgb(44, 99, 230);
+    font-size: larger;
+  }
+}
