@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,GAAG,CAAC;EACF,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG;EACnB,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;EACvB,GAAG,EAAE,IAAI;CACV;;AAED,AAAA,EAAE,CAAC;EACD,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;CACxB",
+    "sources": [
+        "../src/app/exchange-rate-calculator/exchange-rate-calculator.component.scss"
+    ],
+    "names": [],
+    "file": "exchange-rate-calculator.component.css"
+}
