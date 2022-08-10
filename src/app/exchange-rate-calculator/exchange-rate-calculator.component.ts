@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ErrorService } from 'app/core/service/error.service';
 import { ExchangeRateService } from 'app/core/service/exchange-rate.service';
+import { COMMON_RATES, MAIN_RATE } from 'app/exchange-rates-table/rates.const';
 import { Rates } from 'app/shared/models/exchange-rate.mode';
 
 @Component({
@@ -27,23 +28,10 @@ export class ExchangeRateCalculatorComponent {
   }
 
   loadData() {
-    this.exchangeRateService.getCurrency('RSD').subscribe(
+    this.exchangeRateService.getCurrency(MAIN_RATE).subscribe(
       (data) => {
         this.allRates = data.rates;
-        this.filteredRates = this.filterRates(data.rates, [
-          'USD',
-          'GBP',
-          'EUR',
-          'AUD',
-          'CAD',
-          'CHF',
-          'BAM',
-          'NOK',
-          'JPY',
-          'TRY',
-          'HRK',
-          'HUF',
-        ]);
+        this.filteredRates = this.filterRates(data.rates, COMMON_RATES);
       },
       (error) => {
         this.errorService.handleError(error);

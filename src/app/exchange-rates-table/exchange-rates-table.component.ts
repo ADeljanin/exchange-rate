@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 import { ErrorService } from 'app/core/service/error.service';
 import { ExchangeRateService } from 'app/core/service/exchange-rate.service';
 import { Rates } from 'app/shared/models/exchange-rate.mode';
+import { COMMON_RATES, MAIN_RATE } from './rates.const';
 
 @Component({
   selector: 'app-exchange-rates-table',
@@ -9,10 +11,6 @@ import { Rates } from 'app/shared/models/exchange-rate.mode';
   styleUrls: ['./exchange-rates-table.component.scss']
 })
 export class ExchangeRatesTableComponent implements OnInit {
-
-  title(title: any) {
-    throw new Error('Method not implemented.');
-  }
   filteredRates!: Rates;
   allRates!: Rates;
   selectedOneCurrency: string = '';
@@ -28,23 +26,10 @@ export class ExchangeRatesTableComponent implements OnInit {
   }
 
   loadData() {
-    this.exchangeRateService.getCurrency('RSD').subscribe(
+    this.exchangeRateService.getCurrency(MAIN_RATE).subscribe(
       (data) => {
         this.allRates = data.rates;
-        this.filteredRates = this.filterRates(data.rates, [
-          'USD',
-          'GBP',
-          'EUR',
-          'AUD',
-          'CAD',
-          'CHF',
-          'BAM',
-          'NOK',
-          'JPY',
-          'TRY',
-          'HRK',
-          'HUF',
-        ]);
+        this.filteredRates = this.filterRates(data.rates, COMMON_RATES);
       },
       (error) => {
         this.errorService.handleError(error);
@@ -83,8 +68,8 @@ export class ExchangeRatesTableComponent implements OnInit {
     return shuffled.slice(0, num);
   }
 
-  selectCurrency(value: string): void {
-    this.selectedOneCurrency = value;
+  selectCurrency(even: MatSelectChange): void {
+    this.selectedOneCurrency = even.value;
     this.exchangeRateService.getCurrency(this.selectedOneCurrency).subscribe(
       (data) => {
         this.filteredRates = this.filterRates(data.rates, this.randomRates);
