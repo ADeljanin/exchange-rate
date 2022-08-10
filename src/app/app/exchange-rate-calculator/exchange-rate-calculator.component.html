@@ -1,0 +1,36 @@
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Amount</mat-label>
+    <input [(ngModel)]="amount" type="number" min="0" matInput />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Select currency:</mat-label>
+    <mat-select #currencies (change)="selectCurrency(currencies.value)">
+      <mat-option
+        (click)="selectCurrency(currencies.value)"
+        *ngFor="let rate of allRates | keyvalue"
+        [value]="rate.key"
+      >
+        {{ rate.key }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+  <p>convert to</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Select currency:</mat-label>
+    <mat-select #currencies (change)="selectCurrency(currencies.value)">
+      <mat-option *ngFor="let rate of allRates | keyvalue" [value]="rate.key">
+        {{ rate.key }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+  <div class="example-button-row">
+    <button (click)="convertCurrencies()" mat-flat-button color="primary">
+      Convert
+    </button>
+  </div>
+</div>
+<h2>Converted amount: {{ amount }}</h2>
+<button (click)="onBack()" mat-flat-button color="primary">
+  &#8592; Go back to main page
+</button>
