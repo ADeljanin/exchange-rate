@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { ErrorService } from 'app/core/service/error.service';
 import { ExchangeRateService } from 'app/core/service/exchange-rate.service';
@@ -13,9 +14,13 @@ import { Rates } from 'app/shared/models/exchange-rate.mode';
 export class ExchangeRateCalculatorComponent {
   filteredRates!: Rates;
   allRates!: Rates;
-  selectedOneCurrency: string = '';
+  selectedFromCurrency: string = '';
+  selectedToCurrency: string = '';
   randomRates: string[] = [];
-  amount: string = '';
+  amount: number = 0;
+  fromCurrency: number = 0;
+  toCurrency: number = 0;
+  convertedAmount: number = 0;
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -31,7 +36,6 @@ export class ExchangeRateCalculatorComponent {
     this.exchangeRateService.getCurrency(MAIN_RATE).subscribe(
       (data) => {
         this.allRates = data.rates;
-        this.filteredRates = this.filterRates(data.rates, COMMON_RATES);
       },
       (error) => {
         this.errorService.handleError(error);
@@ -50,26 +54,19 @@ export class ExchangeRateCalculatorComponent {
     return filteredRates;
   }
 
-  selectCurrency(value: string): void {
-    this.selectedOneCurrency = value;
-    this.exchangeRateService.getCurrency(this.selectedOneCurrency).subscribe(
-      (data) => {
-        this.filteredRates = this.filterRates(data.rates, this.randomRates);
-      },
-      (error) => {
-        this.errorService.handleError(error);
-      }
-    );
-    console.log(this.filteredRates);
+  selectFirstCurrency(even: MatSelectChange): void {
+    this.selectedFromCurrency = even.value;
+  }
+  selectSecondCurrency(even: MatSelectChange): void {
+    this.selectedToCurrency = even.value;
   }
 
   convertCurrencies() {
-    console.log(this.amount);
-    return this.amount;
-  }
+    this.fromCurrency = this.allRates[this.selectedFromCurrency];
+    this.toCurrency = this.allRates[this.selectedToCurrency];
 
-  clickCurrency(value: string) {
-    console.log(value);
+    this.convertedAmount =
+      ((this.amount * 1) / this.fromCurrency) * this.toCurrency;
   }
 
   onBack(): void {
