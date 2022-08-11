@@ -11,7 +11,7 @@
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Select currency:</mat-label>
-    <mat-select (selectionChange)="selectFirstCurrency($event)">
+    <mat-select [(ngModel)]="selectedFromCurrency">
       <mat-option *ngFor="let rate of allRates | keyvalue" [value]="rate.key">
         {{ rate.key }}</mat-option
       >
@@ -20,7 +20,7 @@
   <p>convert to</p>
   <mat-form-field appearance="fill">
     <mat-label>Select currency:</mat-label>
-    <mat-select #currencies (selectionChange)="selectSecondCurrency($event)">
+    <mat-select [(ngModel)]="selectedToCurrency">
       <mat-option *ngFor="let rate of allRates | keyvalue" [value]="rate.key">
         {{ rate.key }}</mat-option
       >
@@ -35,17 +35,8 @@
     >
       Convert
     </button>
-    <button
-      class="btn btn-reset"
-      (click)="clearAllValues()"
-      mat-flat-button
-      color="primary"
-    >
-      Reset values
-    </button>
+
   </div>
 </div>
 <h2>Converted amount: {{ convertedAmount | number: "1.2-4" }}</h2>
-<!-- <button (click)="onBack()" mat-flat-button color="primary">
-  &#8592; Go back to main page
-</button> -->
+

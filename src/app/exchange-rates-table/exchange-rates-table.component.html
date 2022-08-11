@@ -10,7 +10,7 @@
       Show random currencies
     </button>
     <div>
-      <mat-form-field appearance="fill">
+      <mat-form-field class="currency-select" appearance="outline">
         <mat-label>Select a currency:</mat-label>
         <mat-select #currencies (selectionChange)="selectCurrency($event)">
           <mat-option
