@@ -17,8 +17,11 @@
             *ngFor="let rate of allRates | keyvalue"
             [value]="rate.key"
           >
-            {{ rate.key }}</mat-option
-          >
+            {{ rate.key }}
+            <span
+              class="currency-flag currency-flag-{{ rate.key | lowercase }}"
+            ></span
+          ></mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -36,7 +39,9 @@
     </div>
   </div>
   <h2>
-    Exchange rate list for {{ exchangeListDate | date: "dd.MM.yyyy" }} (in RSD)
+    Exchange rate list for {{ exchangeListDate | date: "dd.MM.yyyy" }} (
+    <div class="currency-flag currency-flag-rsd"></div>
+    RSD )
   </h2>
   <div class="rates-container" *ngIf="filteredRates">
     <div class="bg-video">

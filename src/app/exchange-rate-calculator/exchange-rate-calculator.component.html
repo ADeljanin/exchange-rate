@@ -1,3 +1,4 @@
+<mat-spinner *ngIf="showSpinner" style="margin: 0 auto"></mat-spinner>
 <div class="container">
   <div class="bg-video">
     <video class="bg-video__content" autoplay muted loop>
@@ -5,25 +6,31 @@
       Your browser is not supported
     </video>
   </div>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Amount</mat-label>
     <input [(ngModel)]="amount" type="number" min="0" matInput />
   </mat-form-field>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Select currency:</mat-label>
     <mat-select [(ngModel)]="selectedFromCurrency">
       <mat-option *ngFor="let rate of allRates | keyvalue" [value]="rate.key">
-        {{ rate.key }}</mat-option
-      >
+        {{ rate.key }}
+        <span
+          class="currency-flag currency-flag-{{ rate.key | lowercase }}"
+        ></span>
+      </mat-option>
     </mat-select>
   </mat-form-field>
   <p>convert to</p>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Select currency:</mat-label>
     <mat-select [(ngModel)]="selectedToCurrency">
       <mat-option *ngFor="let rate of allRates | keyvalue" [value]="rate.key">
-        {{ rate.key }}</mat-option
-      >
+        {{ rate.key }}
+        <span
+          class="currency-flag currency-flag-{{ rate.key | lowercase }}"
+        ></span>
+      </mat-option>
     </mat-select>
   </mat-form-field>
   <div class="btn-container">
@@ -35,8 +42,6 @@
     >
       Convert
     </button>
-
   </div>
 </div>
 <h2>Converted amount: {{ convertedAmount | number: "1.2-4" }}</h2>
-

@@ -15,12 +15,9 @@ export class ExchangeRateCalculatorComponent {
   allRates!: Rates;
   selectedFromCurrency = 'RSD';
   selectedToCurrency = 'RSD';
-  randomRates: string[] = [];
   amount: number = 1;
-  fromCurrency: number = 0;
-  toCurrency: number = 0;
   convertedAmount: number = 0;
-  initialSelectedCurrency = 'RSD';
+  showSpinner: boolean = false;
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -33,6 +30,10 @@ export class ExchangeRateCalculatorComponent {
   }
 
   loadData() {
+    this.showSpinner = true;
+    setTimeout(() => {
+      this.showSpinner = false;
+    }, 1000);
     this.exchangeRateService.getCurrency(MAIN_RATE).subscribe(
       (data) => {
         this.allRates = data.rates;
@@ -44,11 +45,9 @@ export class ExchangeRateCalculatorComponent {
   }
 
   convertCurrencies() {
-    this.fromCurrency = this.allRates[this.selectedFromCurrency];
-    this.toCurrency = this.allRates[this.selectedToCurrency];
+    const fromCurrency = this.allRates[this.selectedFromCurrency];
+    const toCurrency = this.allRates[this.selectedToCurrency];
 
-    this.convertedAmount =
-      ((this.amount * 1) / this.fromCurrency) * this.toCurrency;
+    this.convertedAmount = ((this.amount * 1) / fromCurrency) * toCurrency;
   }
-
 }
