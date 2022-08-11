@@ -31,3 +31,16 @@ h2 {
     object-fit: cover;
   }
 }
+
+.btn {
+  background-color: rgb(44, 99, 230);
+  &:hover {
+    background-color: white;
+    color: rgb(44, 99, 230);
+    outline: 2px solid rgb(44, 99, 230);
+  }
+  &-container {
+    display: flex;
+    gap: 24px;
+  }
+}

@@ -35,6 +35,9 @@
       </select> -->
     </div>
   </div>
+  <h2>
+    Exchange rate list for {{ exchangeListDate | date: "dd.MM.yyyy" }} (in RSD)
+  </h2>
   <div class="rates-container" *ngIf="filteredRates">
     <div class="bg-video">
       <video class="bg-video__content" autoplay muted loop>

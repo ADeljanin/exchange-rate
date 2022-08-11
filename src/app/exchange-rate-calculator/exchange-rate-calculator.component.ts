@@ -17,7 +17,7 @@ export class ExchangeRateCalculatorComponent {
   selectedFromCurrency: string = '';
   selectedToCurrency: string = '';
   randomRates: string[] = [];
-  amount: number = 0;
+  amount: number = 1;
   fromCurrency: number = 0;
   toCurrency: number = 0;
   convertedAmount: number = 0;
@@ -68,8 +68,14 @@ export class ExchangeRateCalculatorComponent {
     this.convertedAmount =
       ((this.amount * 1) / this.fromCurrency) * this.toCurrency;
   }
-
-  onBack(): void {
-    this.router.navigate(['']);
+  clearAllValues(): void {
+    this.amount = 1;
+    this.selectedFromCurrency = '';
+    this.selectedToCurrency = 'AED';
+    this.convertedAmount = 0;
   }
+
+  // onBack(): void {
+  //   this.router.navigate(['']);
+  // }
 }

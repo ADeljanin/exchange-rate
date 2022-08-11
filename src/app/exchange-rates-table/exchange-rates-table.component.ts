@@ -2,19 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { ErrorService } from 'app/core/service/error.service';
 import { ExchangeRateService } from 'app/core/service/exchange-rate.service';
-import { Rates } from 'app/shared/models/exchange-rate.mode';
+import { Rates, RatesResponse } from 'app/shared/models/exchange-rate.mode';
 import { COMMON_RATES, MAIN_RATE } from './rates.const';
 
 @Component({
   selector: 'app-exchange-rates-table',
   templateUrl: './exchange-rates-table.component.html',
-  styleUrls: ['./exchange-rates-table.component.scss']
+  styleUrls: ['./exchange-rates-table.component.scss'],
 })
 export class ExchangeRatesTableComponent implements OnInit {
   filteredRates!: Rates;
   allRates!: Rates;
   selectedOneCurrency: string = '';
   randomRates: string[] = [];
+  exchangeListDate: string = '';
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -29,6 +30,7 @@ export class ExchangeRatesTableComponent implements OnInit {
     this.exchangeRateService.getCurrency(MAIN_RATE).subscribe(
       (data) => {
         this.allRates = data.rates;
+        this.exchangeListDate = data.date;
         this.filteredRates = this.filterRates(data.rates, COMMON_RATES);
       },
       (error) => {
