@@ -28,8 +28,10 @@
   </div>
   <h2>
     Exchange rate list for {{ exchangeListDate | date: "dd.MM.yyyy" }} (
-    <div class="currency-flag currency-flag-rsd"></div>
-    RSD )
+    <div
+      class="currency-flag currency-flag-{{ currencyInHeadline | lowercase }}"
+    ></div>
+    {{ currencyInHeadline }} )
   </h2>
   <div class="rates-container" *ngIf="filteredRates">
     <div class="bg-video">
@@ -42,6 +44,8 @@
       <thead>
         <tr>
           <th>Country flag</th>
+          <th>Country name</th>
+          <th>Full currency name</th>
           <th>Currency name</th>
           <th>Rate</th>
         </tr>
@@ -53,6 +57,8 @@
               class="currency-flag currency-flag-{{ rate.key | lowercase }}"
             ></span>
           </td>
+          <td>{{ countryNames }}</td>
+          <td>insert currency name</td>
           <td>{{ rate.key }}</td>
           <td>{{ 1 / rate.value | number: "1.2-4" }}</td>
         </tr>

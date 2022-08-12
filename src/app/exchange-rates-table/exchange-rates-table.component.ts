@@ -4,6 +4,7 @@ import { ErrorService } from 'app/core/service/error.service';
 import { ExchangeRateService } from 'app/core/service/exchange-rate.service';
 import { Rates, RatesResponse } from 'app/shared/models/exchange-rate.mode';
 import { COMMON_RATES, MAIN_RATE } from './rates.const';
+import { CURRENCY_MAPPING } from 'app/shared/consts/currency-mapping';
 
 @Component({
   selector: 'app-exchange-rates-table',
@@ -16,6 +17,8 @@ export class ExchangeRatesTableComponent implements OnInit {
   selectedOneCurrency: string = '';
   randomRates: string[] = [];
   exchangeListDate: string = '';
+  countryNames: {} = CURRENCY_MAPPING;
+  currencyInHeadline = MAIN_RATE;
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -72,6 +75,7 @@ export class ExchangeRatesTableComponent implements OnInit {
 
   selectCurrency(even: MatSelectChange): void {
     this.selectedOneCurrency = even.value;
+    this.currencyInHeadline = even.value;
     this.exchangeRateService.getCurrency(this.selectedOneCurrency).subscribe(
       (data) => {
         this.filteredRates = this.filterRates(data.rates, this.randomRates);
