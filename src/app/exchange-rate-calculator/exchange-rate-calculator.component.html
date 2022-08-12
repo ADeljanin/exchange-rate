@@ -1,4 +1,4 @@
-<mat-spinner *ngIf="showSpinner" style="margin: 0 auto"></mat-spinner>
+<mat-spinner class="spinner" *ngIf="showSpinner"></mat-spinner>
 <div class="container">
   <div class="bg-video">
     <video class="bg-video__content" autoplay muted loop>
@@ -43,5 +43,5 @@
       Convert
     </button>
   </div>
+  <h2>Converted amount: {{ convertedAmount | number: "1.2-4" }}</h2>
 </div>
-<h2>Converted amount: {{ convertedAmount | number: "1.2-4" }}</h2>
