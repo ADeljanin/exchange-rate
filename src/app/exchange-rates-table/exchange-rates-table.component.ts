@@ -17,7 +17,7 @@ export class ExchangeRatesTableComponent implements OnInit {
   selectedOneCurrency: string = '';
   randomRates: string[] = [];
   exchangeListDate: string = '';
-  countryNames: {} = CURRENCY_MAPPING;
+  countryNames: any;
   currencyInHeadline = MAIN_RATE;
 
   constructor(
@@ -40,6 +40,9 @@ export class ExchangeRatesTableComponent implements OnInit {
         this.errorService.handleError(error);
       }
     );
+    Object.values(CURRENCY_MAPPING).forEach((val) => {
+      this.countryNames = val.country;
+    });
   }
 
   private filterRates(rates: Rates, filteredNames: string[]): Rates {
