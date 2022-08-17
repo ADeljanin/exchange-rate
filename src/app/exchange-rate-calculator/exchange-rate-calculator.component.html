@@ -11,7 +11,7 @@
     <input [(ngModel)]="amount" type="number" min="0" matInput />
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>Select currency:</mat-label>
+    <mat-label>From:</mat-label>
     <mat-select [(ngModel)]="selectedFromCurrency">
       <mat-option *ngFor="let rate of allRates | keyvalue" [value]="rate.key">
         {{ rate.key }}
@@ -21,9 +21,15 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <p>convert to</p>
+  <button
+    mat-mini-fab
+    color="primary"
+    aria-label="Example icon button with a menu icon"
+  >
+    <mat-icon class="switch">compare_arrows</mat-icon>
+  </button>
   <mat-form-field appearance="outline">
-    <mat-label>Select currency:</mat-label>
+    <mat-label>To:</mat-label>
     <mat-select [(ngModel)]="selectedToCurrency">
       <mat-option *ngFor="let rate of allRates | keyvalue" [value]="rate.key">
         {{ rate.key }}

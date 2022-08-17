@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { ErrorService } from 'app/core/service/error.service';
 import { ExchangeRateService } from 'app/core/service/exchange-rate.service';
-import { ExtendedRate, Rates, RatesResponse } from 'app/shared/models/exchange-rate.mode';
+import {
+  ExtendedRate,
+  Rates,
+  RatesResponse,
+} from 'app/shared/models/exchange-rate.mode';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { COMMON_RATES, MAIN_RATE } from './rates.const';
 import { CURRENCY_MAPPING } from 'app/shared/consts/currency-mapping';
 
@@ -18,14 +23,27 @@ export class ExchangeRatesTableComponent implements OnInit {
   randomRates: string[] = [];
   exchangeListDate: string = '';
   currencyInHeadline = MAIN_RATE;
+  hideContainer = false;
 
   constructor(
     private exchangeRateService: ExchangeRateService,
-    private errorService: ErrorService
-  ) { }
+    private errorService: ErrorService,
+    private breakpointService: BreakpointObserver
+  ) {}
 
   ngOnInit(): void {
     this.loadData();
+    this.breakpointService
+      .observe([Breakpoints.Small, Breakpoints.XSmall])
+      .subscribe((result) => {
+        this.hideContainer = false;
+        if (result.breakpoints[Breakpoints.Small]) {
+          this.hideContainer = true;
+        }
+        if (result.breakpoints[Breakpoints.XSmall]) {
+          this.hideContainer = true;
+        }
+      });
   }
 
   loadData() {
@@ -33,7 +51,10 @@ export class ExchangeRatesTableComponent implements OnInit {
       (data) => {
         this.allRates = data.rates;
         this.exchangeListDate = data.date;
-        this.filteredRates = this.getExtendedFilteredRates(data.rates, COMMON_RATES);
+        this.filteredRates = this.getExtendedFilteredRates(
+          data.rates,
+          COMMON_RATES
+        );
       },
       (error) => {
         this.errorService.handleError(error);
@@ -41,21 +62,24 @@ export class ExchangeRatesTableComponent implements OnInit {
     );
   }
 
-  private getExtendedFilteredRates(rates: Rates, filteredCurrenciesNames: string[]): ExtendedRate[] {
+  private getExtendedFilteredRates(
+    rates: Rates,
+    filteredCurrenciesNames: string[]
+  ): ExtendedRate[] {
     let extendedRates: ExtendedRate[] = [];
 
     Object.entries(rates).forEach((item) => {
       const currentCurrency = item[0];
       if (filteredCurrenciesNames.includes(currentCurrency)) {
         const findMapping = CURRENCY_MAPPING[currentCurrency];
-        extendedRates.push(
-          {
-            rate: rates[currentCurrency],
-            currency: currentCurrency,
-            currencyFullName: findMapping ? findMapping.currencyFullName : 'Unknown currency full name',
-            country: findMapping ? findMapping.country : 'Unknown country'
-          } as ExtendedRate
-        )
+        extendedRates.push({
+          rate: rates[currentCurrency],
+          currency: currentCurrency,
+          currencyFullName: findMapping
+            ? findMapping.currencyFullName
+            : 'Unknown currency full name',
+          country: findMapping ? findMapping.country : 'Unknown country',
+        } as ExtendedRate);
       }
     });
     return extendedRates;
@@ -66,7 +90,10 @@ export class ExchangeRatesTableComponent implements OnInit {
       (data) => {
         let randomData: string[] = [];
         randomData = this.getMultipleRandom(Object.keys(data.rates), 12);
-        this.filteredRates = this.getExtendedFilteredRates(data.rates, randomData);
+        this.filteredRates = this.getExtendedFilteredRates(
+          data.rates,
+          randomData
+        );
         this.randomRates = randomData;
       },
       (error) => {
@@ -86,7 +113,10 @@ export class ExchangeRatesTableComponent implements OnInit {
     this.currencyInHeadline = even.value;
     this.exchangeRateService.getCurrency(this.selectedOneCurrency).subscribe(
       (data) => {
-        this.filteredRates = this.getExtendedFilteredRates(data.rates, this.randomRates);
+        this.filteredRates = this.getExtendedFilteredRates(
+          data.rates,
+          this.randomRates
+        );
       },
       (error) => {
         this.errorService.handleError(error);

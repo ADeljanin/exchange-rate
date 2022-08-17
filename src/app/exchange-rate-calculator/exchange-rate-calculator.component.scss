@@ -55,7 +55,9 @@ h2 {
     gap: 24px;
   }
 }
-
+.switch {
+  transform: rotate(90deg);
+}
 .currency-flag {
   display: inline-block;
   width: 24px;

@@ -10,6 +10,11 @@
     padding-bottom: 25px;
     gap: 20px;
     align-items: flex-end;
+    &-small {
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
   }
 }
 .rates-container {
