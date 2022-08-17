@@ -31,15 +31,14 @@ export class ExchangeRateCalculatorComponent {
 
   loadData() {
     this.showSpinner = true;
-    setTimeout(() => {
-      this.showSpinner = false;
-    }, 1000);
     this.exchangeRateService.getCurrency(MAIN_RATE).subscribe(
       (data) => {
         this.allRates = data.rates;
+        this.showSpinner = false;
       },
       (error) => {
         this.errorService.handleError(error);
+        this.showSpinner = false;
       }
     );
   }

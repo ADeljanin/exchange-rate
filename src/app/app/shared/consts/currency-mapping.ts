@@ -1,4 +1,6 @@
-export const CURRENCY_MAPPING = {
+import { CurrencyMapping } from "../models/exchange-rate.mode";
+
+export const CURRENCY_MAPPING: { [key in string]: CurrencyMapping } = {
   AED: {
     currency: 'AED',
     currencyFullName: 'UAE Dirham',

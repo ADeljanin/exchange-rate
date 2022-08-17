@@ -51,16 +51,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let rate of filteredRates | keyvalue">
+        <tr *ngFor="let rate of filteredRates">
           <td>
             <span
-              class="currency-flag currency-flag-{{ rate.key | lowercase }}"
+              class="currency-flag currency-flag-{{ rate.currency | lowercase }}"
             ></span>
           </td>
-          <td>{{ countryNames }}</td>
-          <td>insert currency name</td>
-          <td>{{ rate.key }}</td>
-          <td>{{ 1 / rate.value | number: "1.2-4" }}</td>
+          <td>{{ rate.country }}</td>
+          <td>{{ rate.currencyFullName }}</td>
+          <td>{{ rate.currency }}</td>
+          <td>{{ 1 / rate.rate | number: "1.2-4" }}</td>
         </tr>
       </tbody>
     </table>

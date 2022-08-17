@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { ErrorService } from 'app/core/service/error.service';
 import { ExchangeRateService } from 'app/core/service/exchange-rate.service';
-import { Rates, RatesResponse } from 'app/shared/models/exchange-rate.mode';
+import { ExtendedRate, Rates, RatesResponse } from 'app/shared/models/exchange-rate.mode';
 import { COMMON_RATES, MAIN_RATE } from './rates.const';
 import { CURRENCY_MAPPING } from 'app/shared/consts/currency-mapping';
 
@@ -12,18 +12,17 @@ import { CURRENCY_MAPPING } from 'app/shared/consts/currency-mapping';
   styleUrls: ['./exchange-rates-table.component.scss'],
 })
 export class ExchangeRatesTableComponent implements OnInit {
-  filteredRates!: Rates;
+  filteredRates: ExtendedRate[] = [];
   allRates!: Rates;
   selectedOneCurrency: string = '';
   randomRates: string[] = [];
   exchangeListDate: string = '';
-  countryNames: any;
   currencyInHeadline = MAIN_RATE;
 
   constructor(
     private exchangeRateService: ExchangeRateService,
     private errorService: ErrorService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -34,26 +33,32 @@ export class ExchangeRatesTableComponent implements OnInit {
       (data) => {
         this.allRates = data.rates;
         this.exchangeListDate = data.date;
-        this.filteredRates = this.filterRates(data.rates, COMMON_RATES);
+        this.filteredRates = this.getExtendedFilteredRates(data.rates, COMMON_RATES);
       },
       (error) => {
         this.errorService.handleError(error);
       }
     );
-    Object.values(CURRENCY_MAPPING).forEach((val) => {
-      this.countryNames = val.country;
-    });
   }
 
-  private filterRates(rates: Rates, filteredNames: string[]): Rates {
-    let filteredRates: Rates = {};
+  private getExtendedFilteredRates(rates: Rates, filteredCurrenciesNames: string[]): ExtendedRate[] {
+    let extendedRates: ExtendedRate[] = [];
 
     Object.entries(rates).forEach((item) => {
-      if (filteredNames.includes(item[0])) {
-        filteredRates[item[0]] = item[1];
+      const currentCurrency = item[0];
+      if (filteredCurrenciesNames.includes(currentCurrency)) {
+        const findMapping = CURRENCY_MAPPING[currentCurrency];
+        extendedRates.push(
+          {
+            rate: rates[currentCurrency],
+            currency: currentCurrency,
+            currencyFullName: findMapping ? findMapping.currencyFullName : 'Unknown currency full name',
+            country: findMapping ? findMapping.country : 'Unknown country'
+          } as ExtendedRate
+        )
       }
     });
-    return filteredRates;
+    return extendedRates;
   }
 
   randomData() {
@@ -61,7 +66,7 @@ export class ExchangeRatesTableComponent implements OnInit {
       (data) => {
         let randomData: string[] = [];
         randomData = this.getMultipleRandom(Object.keys(data.rates), 12);
-        this.filteredRates = this.filterRates(data.rates, randomData);
+        this.filteredRates = this.getExtendedFilteredRates(data.rates, randomData);
         this.randomRates = randomData;
       },
       (error) => {
@@ -81,7 +86,7 @@ export class ExchangeRatesTableComponent implements OnInit {
     this.currencyInHeadline = even.value;
     this.exchangeRateService.getCurrency(this.selectedOneCurrency).subscribe(
       (data) => {
-        this.filteredRates = this.filterRates(data.rates, this.randomRates);
+        this.filteredRates = this.getExtendedFilteredRates(data.rates, this.randomRates);
       },
       (error) => {
         this.errorService.handleError(error);
