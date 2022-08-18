@@ -16,11 +16,9 @@ export class ExchangeRateCalculatorComponent {
   allRates!: Rates;
   selectedFromCurrency = 'RSD';
   selectedToCurrency = 'RSD';
-  selectedBackupCurrency = '';
   amount: number = 1;
-  convertedAmount: number = 0;
   showSpinner: boolean = false;
-  hideConvertedAmount: boolean = true;
+  convertedMessage = '';
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -50,17 +48,13 @@ export class ExchangeRateCalculatorComponent {
     const fromCurrency = this.allRates[this.selectedFromCurrency];
     const toCurrency = this.allRates[this.selectedToCurrency];
 
-    this.convertedAmount = ((this.amount * 1) / fromCurrency) * toCurrency;
-    this.hideConvertedAmount = false;
-  }
-
-  hideElementConvertedAmount() {
-    this.hideConvertedAmount = true;
+    const exchangedValue = ((this.amount * 1) / fromCurrency) * toCurrency;
+    this.convertedMessage = `${this.amount} ${this.selectedFromCurrency} = ${exchangedValue} ${this.selectedToCurrency}`;
   }
 
   switchCurrencies() {
-    this.selectedBackupCurrency = this.selectedToCurrency;
+    const selectedBackupCurrency = this.selectedToCurrency;
     this.selectedToCurrency = this.selectedFromCurrency;
-    this.selectedFromCurrency = this.selectedBackupCurrency;
+    this.selectedFromCurrency = selectedBackupCurrency;
   }
 }
