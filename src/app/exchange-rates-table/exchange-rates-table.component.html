@@ -1,85 +1,96 @@
-<button routerLink="/calculator" class="btn btn-main">
-  Convert your currencies
-</button>
-<div class="container">
-  <div class="rates-container">
-    <h2>
-      Exchange rate list for {{ exchangeListDate | date: "dd.MM.yyyy" }} (
+<div class="main-container">
+  <div class="heading">
+    <img
+      class="logo"
+      src="./assets/img/logo Exchange rate1.png"
+      alt="company logo"
+    />
+    <button routerLink="/calculator" class="btn btn-main">
+      Convert your currencies
+    </button>
+  </div>
+  <div class="container">
+    <div class="rates-container">
+      <h2>
+        Exchange rate list for {{ exchangeListDate | date: "dd.MM.yyyy" }} (
+        <div
+          class="currency-flag currency-flag-{{
+            currencyInHeadline | lowercase
+          }}"
+        ></div>
+        {{ currencyInHeadline }} )
+      </h2>
       <div
-        class="currency-flag currency-flag-{{ currencyInHeadline | lowercase }}"
-      ></div>
-      {{ currencyInHeadline }} )
-    </h2>
-    <div
-      [ngClass]="{ 'container-btn-small': styleContainer }"
-      class="container-btn"
-    >
-      <button
-        [ngClass]="{ 'btn-small': styleBtns }"
-        class="btn btn-aside"
-        (click)="loadData()"
+        [ngClass]="{ 'container-btn-small': styleContainer }"
+        class="container-btn"
       >
-        Show common currencies
-      </button>
-      <button
-        [ngClass]="{ 'btn-small': styleBtns }"
-        class="btn btn-aside"
-        (click)="randomData()"
-      >
-        Show random currencies
-      </button>
-      <div>
-        <mat-form-field
+        <button
           [ngClass]="{ 'btn-small': styleBtns }"
-          class="currency-select"
-          appearance="outline"
+          class="btn btn-aside"
+          (click)="loadData()"
         >
-          <mat-label>Select a currency:</mat-label>
-          <mat-select (selectionChange)="selectCurrency($event)">
-            <mat-option
-              *ngFor="let rate of allRates | keyvalue"
-              [value]="rate.key"
-            >
-              {{ rate.key }}
-              <span
-                class="currency-flag currency-flag-{{ rate.key | lowercase }}"
-              ></span
-            ></mat-option>
-          </mat-select>
-        </mat-form-field>
+          Show common currencies
+        </button>
+        <button
+          [ngClass]="{ 'btn-small': styleBtns }"
+          class="btn btn-aside"
+          (click)="randomData()"
+        >
+          Show random currencies
+        </button>
+        <div>
+          <mat-form-field
+            [ngClass]="{ 'btn-small': styleBtns }"
+            class="currency-select"
+            appearance="outline"
+          >
+            <mat-label>Select a currency:</mat-label>
+            <mat-select (selectionChange)="selectCurrency($event)">
+              <mat-option
+                *ngFor="let rate of allRates | keyvalue"
+                [value]="rate.key"
+              >
+                {{ rate.key }}
+                <span
+                  class="currency-flag currency-flag-{{ rate.key | lowercase }}"
+                ></span
+              ></mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
+      <div class="bg-video">
+        <video class="bg-video__content" autoplay muted loop>
+          <source src="../assets/video/Three dollars.mp4" type="video/mp4" />
+          Your browser is not supported
+        </video>
+      </div>
+      <table class="rates-table">
+        <thead>
+          <tr>
+            <th>Country flag</th>
+            <th>Country name</th>
+            <th *ngIf="!hideColumn">Full currency name</th>
+            <th>Currency name</th>
+            <th>Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rate of filteredRates">
+            <td>
+              <span
+                class="currency-flag currency-flag-{{
+                  rate.currency | lowercase
+                }}"
+              ></span>
+            </td>
+            <td>{{ rate.country }}</td>
+            <td *ngIf="!hideColumn">{{ rate.currencyFullName }}</td>
+            <td>{{ rate.currency }}</td>
+            <td>{{ 1 / rate.rate | number: "1.2-4" }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="bg-video">
-      <video class="bg-video__content" autoplay muted loop>
-        <source src="../assets/video/Three dollars.mp4" type="video/mp4" />
-        Your browser is not supported
-      </video>
-    </div>
-    <table class="rates-table">
-      <thead>
-        <tr>
-          <th>Country flag</th>
-          <th>Country name</th>
-          <th *ngIf="!hideColumn">Full currency name</th>
-          <th>Currency name</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let rate of filteredRates">
-          <td>
-            <span
-              class="currency-flag currency-flag-{{
-                rate.currency | lowercase
-              }}"
-            ></span>
-          </td>
-          <td>{{ rate.country }}</td>
-          <td *ngIf="!hideColumn">{{ rate.currencyFullName }}</td>
-          <td>{{ rate.currency }}</td>
-          <td>{{ 1 / rate.rate | number: "1.2-4" }}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </div>
