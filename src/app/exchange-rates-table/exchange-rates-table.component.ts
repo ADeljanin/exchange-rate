@@ -25,6 +25,7 @@ export class ExchangeRatesTableComponent implements OnInit {
   currencyInHeadline = MAIN_RATE;
   styleContainer = false;
   hideColumn = false;
+  styleBtns = false;
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -39,13 +40,16 @@ export class ExchangeRatesTableComponent implements OnInit {
       .subscribe((result) => {
         this.styleContainer = false;
         this.hideColumn = false;
+        this.styleBtns = false;
         if (result.breakpoints[Breakpoints.Small]) {
           this.styleContainer = true;
           this.hideColumn = true;
+          this.styleBtns = true;
         }
         if (result.breakpoints[Breakpoints.XSmall]) {
           this.styleContainer = true;
           this.hideColumn = true;
+          this.styleBtns = true;
         }
       });
   }

@@ -1,26 +1,41 @@
+<button routerLink="/calculator" class="btn btn-main">
+  Convert your currencies
+</button>
 <div class="container">
-  <h2>
-    Exchange rate list for {{ exchangeListDate | date: "dd.MM.yyyy" }} (
-    <div
-      class="currency-flag currency-flag-{{ currencyInHeadline | lowercase }}"
-    ></div>
-    {{ currencyInHeadline }} )
-  </h2>
   <div class="rates-container">
+    <h2>
+      Exchange rate list for {{ exchangeListDate | date: "dd.MM.yyyy" }} (
+      <div
+        class="currency-flag currency-flag-{{ currencyInHeadline | lowercase }}"
+      ></div>
+      {{ currencyInHeadline }} )
+    </h2>
     <div
       [ngClass]="{ 'container-btn-small': styleContainer }"
       class="container-btn"
     >
-      <button class="btn btn-aside" (click)="loadData()">
+      <button
+        [ngClass]="{ 'btn-small': styleBtns }"
+        class="btn btn-aside"
+        (click)="loadData()"
+      >
         Show common currencies
       </button>
-      <button class="btn btn-aside" (click)="randomData()">
+      <button
+        [ngClass]="{ 'btn-small': styleBtns }"
+        class="btn btn-aside"
+        (click)="randomData()"
+      >
         Show random currencies
       </button>
       <div>
-        <mat-form-field class="currency-select" appearance="outline">
+        <mat-form-field
+          [ngClass]="{ 'btn-small': styleBtns }"
+          class="currency-select"
+          appearance="outline"
+        >
           <mat-label>Select a currency:</mat-label>
-          <mat-select #currencies (selectionChange)="selectCurrency($event)">
+          <mat-select (selectionChange)="selectCurrency($event)">
             <mat-option
               *ngFor="let rate of allRates | keyvalue"
               [value]="rate.key"
@@ -67,7 +82,4 @@
       </tbody>
     </table>
   </div>
-  <button routerLink="/calculator" class="btn btn-main">
-    Convert your currencies
-  </button>
 </div>
