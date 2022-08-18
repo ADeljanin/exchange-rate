@@ -23,7 +23,8 @@ export class ExchangeRatesTableComponent implements OnInit {
   randomRates: string[] = [];
   exchangeListDate: string = '';
   currencyInHeadline = MAIN_RATE;
-  hideContainer = false;
+  styleContainer = false;
+  hideColumn = false;
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -36,12 +37,15 @@ export class ExchangeRatesTableComponent implements OnInit {
     this.breakpointService
       .observe([Breakpoints.Small, Breakpoints.XSmall])
       .subscribe((result) => {
-        this.hideContainer = false;
+        this.styleContainer = false;
+        this.hideColumn = false;
         if (result.breakpoints[Breakpoints.Small]) {
-          this.hideContainer = true;
+          this.styleContainer = true;
+          this.hideColumn = true;
         }
         if (result.breakpoints[Breakpoints.XSmall]) {
-          this.hideContainer = true;
+          this.styleContainer = true;
+          this.hideColumn = true;
         }
       });
   }

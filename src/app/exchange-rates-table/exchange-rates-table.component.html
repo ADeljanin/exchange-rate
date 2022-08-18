@@ -8,7 +8,7 @@
   </h2>
   <div class="rates-container">
     <div
-      [ngClass]="{ 'container-btn-small': hideContainer }"
+      [ngClass]="{ 'container-btn-small': styleContainer }"
       class="container-btn"
     >
       <button class="btn btn-aside" (click)="loadData()">
@@ -45,7 +45,7 @@
         <tr>
           <th>Country flag</th>
           <th>Country name</th>
-          <th>Full currency name</th>
+          <th *ngIf="!hideColumn">Full currency name</th>
           <th>Currency name</th>
           <th>Rate</th>
         </tr>
@@ -60,7 +60,7 @@
             ></span>
           </td>
           <td>{{ rate.country }}</td>
-          <td>{{ rate.currencyFullName }}</td>
+          <td *ngIf="!hideColumn">{{ rate.currencyFullName }}</td>
           <td>{{ rate.currency }}</td>
           <td>{{ 1 / rate.rate | number: "1.2-4" }}</td>
         </tr>

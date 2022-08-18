@@ -5,6 +5,7 @@ import { ErrorService } from 'app/core/service/error.service';
 import { ExchangeRateService } from 'app/core/service/exchange-rate.service';
 import { COMMON_RATES, MAIN_RATE } from 'app/exchange-rates-table/rates.const';
 import { Rates } from 'app/shared/models/exchange-rate.mode';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-exchange-rate-calculator',
@@ -15,9 +16,11 @@ export class ExchangeRateCalculatorComponent {
   allRates!: Rates;
   selectedFromCurrency = 'RSD';
   selectedToCurrency = 'RSD';
+  selectedBackupCurrency = '';
   amount: number = 1;
   convertedAmount: number = 0;
   showSpinner: boolean = false;
+  hideConvertedAmount: boolean = true;
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -48,5 +51,16 @@ export class ExchangeRateCalculatorComponent {
     const toCurrency = this.allRates[this.selectedToCurrency];
 
     this.convertedAmount = ((this.amount * 1) / fromCurrency) * toCurrency;
+    this.hideConvertedAmount = false;
+  }
+
+  hideElementConvertedAmount() {
+    this.hideConvertedAmount = true;
+  }
+
+  switchCurrencies() {
+    this.selectedBackupCurrency = this.selectedToCurrency;
+    this.selectedToCurrency = this.selectedFromCurrency;
+    this.selectedFromCurrency = this.selectedBackupCurrency;
   }
 }

@@ -6,11 +6,11 @@
       Your browser is not supported
     </video>
   </div>
-  <mat-form-field appearance="outline">
+  <mat-form-field (click)="hideElementConvertedAmount()" appearance="outline">
     <mat-label>Amount</mat-label>
     <input [(ngModel)]="amount" type="number" min="0" matInput />
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field (click)="hideElementConvertedAmount()" appearance="outline">
     <mat-label>From:</mat-label>
     <mat-select [(ngModel)]="selectedFromCurrency">
       <mat-option *ngFor="let rate of allRates | keyvalue" [value]="rate.key">
@@ -22,13 +22,14 @@
     </mat-select>
   </mat-form-field>
   <button
+    (click)="switchCurrencies()"
     mat-mini-fab
     color="primary"
     aria-label="Example icon button with a menu icon"
   >
     <mat-icon class="switch">compare_arrows</mat-icon>
   </button>
-  <mat-form-field appearance="outline">
+  <mat-form-field (click)="hideElementConvertedAmount()" appearance="outline">
     <mat-label>To:</mat-label>
     <mat-select [(ngModel)]="selectedToCurrency">
       <mat-option *ngFor="let rate of allRates | keyvalue" [value]="rate.key">
@@ -49,5 +50,8 @@
       Convert
     </button>
   </div>
-  <h2>Converted amount: {{ convertedAmount | number: "1.2-4" }}</h2>
+  <h2 *ngIf="!hideConvertedAmount">
+    {{ amount }} {{ selectedFromCurrency }} =
+    {{ convertedAmount | number: "1.2-4" }} {{ selectedToCurrency }}
+  </h2>
 </div>
