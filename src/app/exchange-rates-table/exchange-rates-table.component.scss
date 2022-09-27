@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 70%;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -21,10 +21,9 @@
 .container {
   &-btn {
     display: flex;
-    justify-content: space-between;
     gap: 20px;
-    align-items: flex-end;
     width: 100%;
+    justify-content: space-between;
     &-small {
       flex-direction: column;
       gap: 0.3rem;
@@ -37,8 +36,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  padding: 50px;
+  gap: 1rem;
+  padding: 2rem;
   border: 2px solid rgba(44, 99, 230, 0.2);
   border-radius: 20px;
   box-shadow: 10px 10px 20px rgba(44, 99, 230, 0.2);
@@ -143,9 +142,13 @@
 
   &-small {
     width: 100%;
-    padding: 8px;
+    padding: 1rem;
   }
 }
+
+// .dropdown-small {
+//   width: 100%;
+// }
 
 h2 {
   color: rgb(44, 99, 230);
@@ -167,7 +170,14 @@ h2 {
     color: rgb(44, 99, 230);
     font-size: larger;
   }
+  &-small {
+    width: 100%;
+  }
 }
+
+// .select-container {
+//   width: 100%;
+// }
 
 .mat-form-field-wrapper {
   padding-bottom: 0;
@@ -175,6 +185,7 @@ h2 {
 
 .currency-select {
   margin-bottom: -1.9rem;
+  width: 100%;
 }
 
 .currency-flag {

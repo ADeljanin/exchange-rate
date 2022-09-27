@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ErrorService } from 'app/core/service/error.service';
 import { ExchangeRateService } from 'app/core/service/exchange-rate.service';
-import { COMMON_RATES, MAIN_RATE } from 'app/exchange-rates-table/rates.const';
+import { MAIN_RATE } from 'app/exchange-rates-table/rates.const';
 import { Rates } from 'app/shared/models/exchange-rate.mode';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-exchange-rate-calculator',
@@ -14,8 +12,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class ExchangeRateCalculatorComponent {
   allRates!: Rates;
-  selectedFromCurrency = 'RSD';
-  selectedToCurrency = 'RSD';
+  selectedFromCurrency = MAIN_RATE;
+  selectedToCurrency = MAIN_RATE;
   amount: number = 1;
   showSpinner: boolean = false;
   convertedMessage = '';

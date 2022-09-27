@@ -15,10 +15,10 @@
         Exchange rate list for {{ exchangeListDate | date: "dd.MM.yyyy" }} (
         <div
           class="currency-flag currency-flag-{{
-            currencyInHeadline | lowercase
+            selectedOneCurrency | lowercase
           }}"
         ></div>
-        {{ currencyInHeadline }} )
+        {{ selectedOneCurrency }} )
       </h2>
       <div
         [ngClass]="{ 'container-btn-small': styleContainer }"
@@ -38,16 +38,12 @@
         >
           Show random currencies
         </button>
-        <div>
-          <mat-form-field
-            [ngClass]="{ 'btn-small': styleBtns }"
-            class="currency-select"
-            appearance="outline"
-          >
+        <div [ngClass]="{ 'dropdown-small': styleDropdown }">
+          <mat-form-field class="currency-select" appearance="outline">
             <mat-label>Select a currency:</mat-label>
             <mat-select
               (selectionChange)="selectCurrency($event)"
-              [(ngModel)]="currencyInitial"
+              [(ngModel)]="selectedOneCurrency"
             >
               <mat-option
                 *ngFor="let rate of allRates | keyvalue"
@@ -64,7 +60,7 @@
       </div>
       <div class="bg-video">
         <video class="bg-video__content" autoplay muted loop>
-          <source src="../assets/video/Three dollars.mp4" type="video/mp4" />
+          <source src="../../assets/video/Three dollars.mp4" type="video/mp4" />
           Your browser is not supported
         </video>
       </div>
