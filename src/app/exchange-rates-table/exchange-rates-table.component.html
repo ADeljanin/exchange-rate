@@ -45,7 +45,10 @@
             appearance="outline"
           >
             <mat-label>Select a currency:</mat-label>
-            <mat-select (selectionChange)="selectCurrency($event)">
+            <mat-select
+              (selectionChange)="selectCurrency($event)"
+              [(ngModel)]="currencyInitial"
+            >
               <mat-option
                 *ngFor="let rate of allRates | keyvalue"
                 [value]="rate.key"

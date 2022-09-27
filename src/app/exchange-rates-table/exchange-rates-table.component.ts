@@ -26,6 +26,7 @@ export class ExchangeRatesTableComponent implements OnInit {
   styleContainer = false;
   hideColumn = false;
   styleBtns = false;
+  currencyInitial = '';
 
   constructor(
     private exchangeRateService: ExchangeRateService,
@@ -68,6 +69,8 @@ export class ExchangeRatesTableComponent implements OnInit {
         this.errorService.handleError(error);
       }
     );
+    this.currencyInHeadline = MAIN_RATE;
+    this.currencyInitial = '';
   }
 
   private getExtendedFilteredRates(
@@ -108,6 +111,8 @@ export class ExchangeRatesTableComponent implements OnInit {
         this.errorService.handleError(error);
       }
     );
+    this.currencyInHeadline = MAIN_RATE;
+    this.currencyInitial = '';
   }
 
   getMultipleRandom(arr: any, num: number | undefined) {

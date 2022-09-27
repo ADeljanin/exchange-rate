@@ -7,6 +7,8 @@
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 16px;
+  max-width: 70%;
+  margin: 0 auto;
 }
 
 .logo {
@@ -15,7 +17,6 @@
 }
 
 .heading {
-  margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -50,7 +51,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 4px;
+  gap: 0.3rem;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -81,6 +82,7 @@
 
 .rates-container table {
   margin: 0 auto;
+  table-layout: fixed;
 }
 
 .rates-container h2 {
@@ -126,6 +128,7 @@
 
 .rates-table tbody tr {
   border-bottom: 1px solid #dddddd;
+  height: 2rem;
 }
 
 .rates-table tbody tr:hover {

@@ -1,3 +1,7 @@
+.main-container {
+  width: 50%;
+}
+
 .container {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -49,7 +49,9 @@ export class ExchangeRateCalculatorComponent {
     const toCurrency = this.allRates[this.selectedToCurrency];
 
     const exchangedValue = ((this.amount * 1) / fromCurrency) * toCurrency;
-    this.convertedMessage = `${this.amount} ${this.selectedFromCurrency} = ${exchangedValue} ${this.selectedToCurrency}`;
+    this.convertedMessage = `${this.amount} ${
+      this.selectedFromCurrency
+    } = ${exchangedValue.toFixed(4)} ${this.selectedToCurrency}`;
   }
 
   switchCurrencies() {
