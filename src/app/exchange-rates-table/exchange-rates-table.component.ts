@@ -27,7 +27,9 @@ export class ExchangeRatesTableComponent implements OnInit {
     private exchangeRateService: ExchangeRateService,
     private errorService: ErrorService,
     private breakpointService: BreakpointObserver
-  ) {}
+  ) {
+    document.body.style.display = 'block';
+  }
 
   ngOnInit(): void {
     this.loadData();
@@ -132,5 +134,8 @@ export class ExchangeRatesTableComponent implements OnInit {
           this.styleDropdown = true;
         }
       });
+  }
+  ngOnDestroy() {
+    document.body.style.display = 'flex';
   }
 }
