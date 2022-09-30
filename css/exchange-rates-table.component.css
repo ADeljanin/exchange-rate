@@ -7,7 +7,7 @@
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 16px;
-  max-width: 70%;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -36,14 +36,11 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 20px;
+  width: 100%;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  gap: 20px;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  width: 100%;
 }
 
 .container-btn-small {
@@ -71,8 +68,8 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  gap: 15px;
-  padding: 50px;
+  gap: 1rem;
+  padding: 2rem;
   border: 2px solid rgba(44, 99, 230, 0.2);
   border-radius: 20px;
   -webkit-box-shadow: 10px 10px 20px rgba(44, 99, 230, 0.2);
@@ -210,7 +207,7 @@
 
 .btn-small {
   width: 100%;
-  padding: 8px;
+  padding: 1rem;
 }
 
 h2 {
@@ -238,12 +235,17 @@ h2 {
   font-size: larger;
 }
 
+.dropdown-small {
+  width: 100%;
+}
+
 .mat-form-field-wrapper {
   padding-bottom: 0;
 }
 
 .currency-select {
   margin-bottom: -1.9rem;
+  width: 100%;
 }
 
 .currency-flag {
